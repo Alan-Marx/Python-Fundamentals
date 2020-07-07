@@ -1,6 +1,9 @@
 from selenium import webdriver
 # the following import will give us access to functionality such as the enter key, the escape key, etc.
 from selenium.webdriver.common.keys import Keys
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 import time
 
 
@@ -18,7 +21,23 @@ search.send_keys("test")
 # will hit the enter/return key after we have inputted the string
 search.send_keys(Keys.RETURN)
 
-# pauses the program for 5 seconds:
-time.sleep(5)
+# prints out the page's entire source code
+# print(driver.page_source)
 
+# asynchronous control structure:
+try:
+    main = WebDriverWait(driver, 10).until(
+      EC.presence_of_element_located((By.ID, "main"))
+    )
+    print(main.text)
+except:  
+    driver.quit()
+
+time.sleep(5) # pauses program for 5 seconds
 driver.quit()
+
+
+
+
+
+
