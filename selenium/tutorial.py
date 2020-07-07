@@ -24,17 +24,28 @@ search.send_keys(Keys.RETURN)
 # prints out the page's entire source code
 # print(driver.page_source)
 
+# pauses program for 5 seconds
+# time.sleep(5) 
+
 # asynchronous control structure:
 try:
     main = WebDriverWait(driver, 10).until(
       EC.presence_of_element_located((By.ID, "main"))
     )
-    print(main.text)
-except:  
+
+    articles = main.find_elements_by_tag_name("article")
+
+    # a for-in loop in Python:
+    for article in articles:
+        header = article.find_element_by_class_name("entry-summary")
+        print(header.text)
+
+# instead of finally, could also be "except" to handle errors
+finally:  
     driver.quit()
 
-time.sleep(5) # pauses program for 5 seconds
-driver.quit()
+
+
 
 
 
